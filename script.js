@@ -141,3 +141,10 @@ checkboxes.forEach(function (b) {
 updateProgress();
 applyFilter();
 renderMemos();
+
+// 인터넷이 없어도 열리도록 저장 담당 파일(sw.js)을 등록한다
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}

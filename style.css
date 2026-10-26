@@ -279,3 +279,25 @@ li:has(input:checked) label {
     margin: 0 auto;
   }
 }
+
+/* 누른 필터 버튼 */
+nav button.active {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+/* 현장 메모 한 줄 */
+#memo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px 10px 14px;
+}
+
+#memo-list li button {
+  min-height: 36px;
+  padding: 4px 12px;
+  font-size: 12px;
+}

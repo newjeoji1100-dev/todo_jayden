@@ -1,303 +1,54 @@
-/* 라이카 LUX 앱 느낌: 검정 바탕, 가는 흰 글씨, 빨간 점 하나가 포인트 */
-:root {
-  --bg: #000;
-  --panel: #0e0e0e;
-  --line: #2a2a2a;
-  --text: #f2f2f2;
-  --dim: #9a9a9a;
-  --red: #e20612;
-  --amber: #ffb000;
-  --lens-2470: #7fb2ff;
-  --lens-70200: #7fd6a0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
+/* 명세 ② 예시: 청록과 흰색 · 제목은 크게 · 휴대폰에서 누르기 쉬운 버튼 · 줄 사이 넉넉하게 */
 body {
-  margin: 0;
-  padding: 0 14px 48px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Helvetica Neue", Helvetica, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  font-size: 17px;
-  font-weight: 300;
-  line-height: 1.5;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: #ffffff;
+  color: #1f2937;
+  line-height: 1.6;
 }
 
-h1 {
-  flex: 1;
-  margin: 0;
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-}
+h1 { font-size: 28px; color: #0f766e; }
 
-/* 작은 제목은 라이카 설정 화면처럼 가는 대문자 느낌 */
-h2 {
-  margin: 28px 0 10px;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  color: var(--dim);
-}
-
-/* 위쪽: 제목 · 초기화 · 진행률 (스크롤해도 붙어 있음) */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 -14px;
-  padding: 12px 14px 10px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-}
-
-header::before {
-  content: "";
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--red);
-}
-
-header p {
-  flex-basis: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  font-variant-numeric: tabular-nums;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  color: var(--dim);
-}
-
-/* 진행률: 가는 빨간 선 */
-progress {
-  flex: 1;
-  height: 3px;
-  border: 0;
-  border-radius: 2px;
-  appearance: none;
-  -webkit-appearance: none;
-  background: var(--line);
-  color: var(--red);
-}
-
-progress::-webkit-progress-bar {
-  background: var(--line);
-  border-radius: 2px;
-}
-
-progress::-webkit-progress-value {
-  background: var(--red);
-  border-radius: 2px;
-}
-
-progress::-moz-progress-bar {
-  background: var(--red);
-  border-radius: 2px;
-}
-
-/* 버튼: 가는 테두리의 알약 모양 */
-button {
-  min-height: 48px;
-  padding: 8px 18px;
-  border: 1px solid #5a5a5a;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-}
-
-button:active {
-  background: #222;
-}
-
-header button {
-  min-height: 36px;
-  padding: 4px 14px;
-  border-color: var(--red);
-  color: var(--red);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-}
-
-/* 필터 버튼 줄 */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 14px 0;
-}
-
-/* 장비 & 세팅 점검표 */
-details {
-  margin: 14px 0;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel);
-}
-
-summary {
-  min-height: 32px;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-}
-
-details h2 {
-  margin: 18px 0 6px;
-  color: var(--red);
-}
-
-details p {
-  margin: 0;
-  font-size: 15px;
-}
-
-/* 현장 메모 */
-input[type="text"] {
+#item {
   width: 100%;
-  min-height: 48px;
-  margin-bottom: 10px;
-  padding: 8px 14px;
-  border: 1px solid #5a5a5a;
-  border-radius: 12px;
-  background: var(--panel);
-  color: var(--text);
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 8px;
   font-size: 16px;
-  font-weight: 300;
+  border: 1px solid #99c9c4;
+  border-radius: 8px;
 }
 
-input[type="text"]::placeholder {
-  color: #666;
+button { padding: 12px 20px; border-radius: 8px; }
+
+#add {
+  width: 100%;
+  font-size: 16px;
+  color: #ffffff;
+  background: #0f766e;
+  border: none;
 }
 
-/* 컷 카드 */
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+#list { list-style: none; padding: 0; }
 
-li {
-  position: relative;
-  margin-bottom: 10px;
-  border: 1px solid var(--line);
-  border-left: 4px solid #555;
-  border-radius: 14px;
-  background: var(--panel);
-}
-
-/* 렌즈 구분: 왼쪽 색 띠 */
-li[data-lens="2470"] {
-  border-left-color: var(--lens-2470);
-}
-
-li[data-lens="70200"] {
-  border-left-color: var(--lens-70200);
-}
-
-/* ★필수 브릿지는 앰버 테두리 */
-li[data-bridge="1"] {
-  border-color: var(--amber);
-  border-left-color: var(--amber);
-}
-
-li label {
-  display: block;
-  min-height: 64px;
-  padding: 16px 14px 16px 58px;
-}
-
-/* 영상 컷은 빨간 REC 점 */
-li[data-kind="영상"] label::before {
-  content: "● ";
-  color: var(--red);
-}
-
-/* 체크 칸: 둥근 다이얼 모양 */
-li input[type="checkbox"] {
-  position: absolute;
-  top: 19px;
-  left: 16px;
-  width: 28px;
-  height: 28px;
-  margin: 0;
-  border: 2px solid #bbb;
-  border-radius: 50%;
-  appearance: none;
-  -webkit-appearance: none;
-  background: transparent;
-}
-
-li input[type="checkbox"]:checked {
-  border-color: var(--red);
-  background: var(--red);
-  box-shadow: inset 0 0 0 5px var(--bg);
-}
-
-li label span {
-  display: inline-block;
-  padding: 0 8px;
-  border: 1px solid var(--amber);
-  border-radius: 999px;
-  color: var(--amber);
-  font-size: 12px;
-  font-weight: 400;
-}
-
-/* 완료한 컷: 반투명 + 취소선 */
-li:has(input:checked) {
-  opacity: 0.4;
-}
-
-li:has(input:checked) label {
-  text-decoration: line-through;
-}
-
-/* 메모 목록은 비어 있으면 자리를 차지하지 않음 */
-#memo-list:empty {
-  display: none;
-}
-
-/* 큰 화면에서는 가운데 정렬로 읽기 좋게 */
-@media (min-width: 700px) {
-  body {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-}
-
-/* 누른 필터 버튼 */
-nav button.active {
-  border-color: var(--red);
-  background: var(--red);
-  color: #fff;
-}
-
-/* 현장 메모 한 줄 */
-#memo-list li {
+#list li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 10px 10px 14px;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-#memo-list li button {
-  min-height: 36px;
-  padding: 4px 12px;
-  font-size: 12px;
+#list li button {
+  margin-left: auto;
+  padding: 8px 12px;
+  color: #0f766e;
+  background: #ffffff;
+  border: 1px solid #0f766e;
 }
+
+#list input[type="checkbox"] { width: 22px; height: 22px; }
+
+li.done { text-decoration: line-through; color: #9ca3af; }

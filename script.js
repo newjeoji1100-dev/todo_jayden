@@ -29,7 +29,7 @@ var FILTERS = [
   function (li) { return li.dataset.bridge === '1'; }
 ];
 
-// memos: { id: 표의 번호(아직 못 올렸으면 null), text: 글 }
+// memos: { id: 표의 번호(아직 못 올렸으면 null), text: 글, dirty: 고친 글을 아직 표에 못 올렸으면 true }
 // deletes: 인터넷이 없어서 아직 표에서 못 지운 번호들
 var state = { checked: [], setup: [], memos: [], deletes: [], filter: 0 };
 
@@ -125,6 +125,13 @@ function sync() {
       save();
     });
   }).then(function () {
+    return runInOrder(state.memos.filter(function (m) { return m.id !== null && m.dirty; }), function (memo) {
+      return request('PATCH', '?id=eq.' + memo.id, { text: memo.text }).then(function () {
+        memo.dirty = false;
+        save();
+      });
+    });
+  }).then(function () {
     return runInOrder(state.memos.filter(function (m) { return m.id === null; }), function (memo) {
       return request('POST', '', [{ text: memo.text }]).then(function (rows) {
         memo.id = rows[0].id;
@@ -135,9 +142,18 @@ function sync() {
     return request('GET', '?select=id,text,done,created_at&order=created_at.asc,id.asc');
   }).then(function (rows) {
     var waiting = state.memos.filter(function (m) { return m.id === null; });
-    state.memos = rows.map(function (r) { return { id: r.id, text: r.text }; }).concat(waiting);
+    var byId = {};
+    state.memos.forEach(function (m) {
+      if (m.id !== null) byId[m.id] = m;
+    });
+    // 이미 있던 메모는 그대로 두고(고치는 중인 칸 유지), 표의 글로 바꾼다
+    state.memos = rows.map(function (r) {
+      var m = byId[r.id] || { id: r.id };
+      if (!m.dirty) m.text = r.text;
+      return m;
+    }).concat(waiting);
     save();
-    renderMemos();
+    if (!editing) renderMemos();
     syncNote.hidden = true;
   }).catch(function (error) {
     // 인터넷이 없으면 폰에 저장된 목록을 그대로 쓰고, 나중에 다시 맞춘다
@@ -154,24 +170,73 @@ function sync() {
   });
 }
 
+var editing = null;  // 지금 고치고 있는 메모
+
+function makeButton(label, className, onClick) {
+  var button = document.createElement('button');
+  button.type = 'button';
+  button.className = className;
+  button.textContent = label;
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+function saveEdit(memo, text) {
+  text = text.trim().slice(0, 200);
+  if (!text) return;
+  if (text !== memo.text) {
+    memo.text = text;
+    if (memo.id !== null) memo.dirty = true;
+  }
+  editing = null;
+  save();
+  renderMemos();
+  sync();
+}
+
 function renderMemos() {
   memoList.innerHTML = '';
   state.memos.forEach(function (memo, i) {
     var li = document.createElement('li');
+
+    if (memo === editing) {
+      // 고치는 중: 입력칸 + 저장 + 취소
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.value = memo.text;
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.isComposing) saveEdit(memo, input.value);
+        if (e.key === 'Escape') {
+          editing = null;
+          renderMemos();
+        }
+      });
+      li.appendChild(input);
+      li.appendChild(makeButton('저장', 'save', function () { saveEdit(memo, input.value); }));
+      li.appendChild(makeButton('취소', 'cancel', function () {
+        editing = null;
+        renderMemos();
+      }));
+      memoList.appendChild(li);
+      input.focus();
+      return;
+    }
+
     var span = document.createElement('span');
     span.textContent = memo.text;
-    var del = document.createElement('button');
-    del.type = 'button';
-    del.textContent = '삭제';
-    del.addEventListener('click', function () {
-      state.memos.splice(i, 1);
+    li.appendChild(span);
+    li.appendChild(makeButton('수정', 'edit', function () {
+      editing = memo;
+      renderMemos();
+    }));
+    li.appendChild(makeButton('삭제', 'delete', function () {
+      if (editing === memo) editing = null;
+      state.memos.splice(state.memos.indexOf(memo), 1);
       if (memo.id !== null) state.deletes.push(memo.id);
       save();
       renderMemos();
       sync();
-    });
-    li.appendChild(span);
-    li.appendChild(del);
+    }));
     memoList.appendChild(li);
   });
 }

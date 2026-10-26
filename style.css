@@ -317,8 +317,29 @@ nav button.active {
   padding: 10px 10px 10px 14px;
 }
 
+#memo-list li span {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
 #memo-list li button {
   min-height: 40px;
   padding: 4px 12px;
   font-size: 14px;
+}
+
+/* 삭제는 빨간 버튼 */
+#memo-list li button.delete {
+  border-color: #fff;
+  background: var(--red-solid);
+  color: #fff;
+}
+
+/* 고치는 중인 메모의 입력칸 */
+#memo-list li input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  margin: 0;
+  font-size: 16px;
 }

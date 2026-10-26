@@ -16,6 +16,19 @@ self.addEventListener('install', function (event) {
           }
           return cache.put('/', copy).then(function () {
             return cache.addAll(urls.slice(1));
+          }).then(function () {
+            // css 안에 적힌 글꼴 파일(url(...))도 저장한다
+            return Promise.all(urls.filter(function (u) { return /\.css($|\?)/.test(u); }).map(function (u) {
+              return cache.match(u).then(function (res) { return res && res.text(); }).then(function (css) {
+                var fonts = [];
+                var fre = /url\(["']?([^"')]+)["']?\)/g;
+                var f;
+                while ((css || '') && (f = fre.exec(css))) {
+                  if (!/^[a-z]+:/.test(f[1])) fonts.push(f[1]);
+                }
+                return cache.addAll(fonts);
+              });
+            }));
           });
         });
       });

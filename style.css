@@ -13,6 +13,23 @@
   --lens-1635: #e0a0ff;
 }
 
+/* IBM Plex Sans KR: 이 저장소 안의 파일을 쓴다(외부 사이트에서 불러오지 않음). 라이선스는 SIL OFL 1.1 */
+@font-face {
+  font-family: "IBM Plex Sans KR";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/IBMPlexSansKR-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans KR";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/IBMPlexSansKR-Bold.woff2") format("woff2");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,7 +39,7 @@ body {
   padding: 0 14px 48px;
   background: var(--bg);
   color: var(--text);
-  font-family: "Helvetica Neue", Helvetica, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: "IBM Plex Sans KR", "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   font-size: 19px;
   font-weight: 500;
   line-height: 1.5;
@@ -177,6 +194,8 @@ details.part > summary {
   letter-spacing: 0.04em;
   color: var(--text);
   cursor: pointer;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 details.part:not([open]) > summary {
@@ -310,6 +329,8 @@ li label {
   padding: 16px 14px 16px 62px;
   font-size: 21px;
   line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* 영상 컷은 빨간 REC 점 */

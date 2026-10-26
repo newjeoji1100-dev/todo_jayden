@@ -1,6 +1,11 @@
 // 누르면 무슨 일이 일어나는지 담당하는 파일
 var STORAGE_KEY = 'jeju-checklist-v1';
 
+// Supabase(인터넷 표)에 현장 메모를 저장한다. 공개 키만 쓴다.
+var SUPABASE_URL = 'https://qsjiojomberzbcbfkawk.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_W4EZRKkgZR9DRKyCRMSVXg_w3-1h7hu';
+var TODOS_URL = SUPABASE_URL + '/rest/v1/todos';
+
 var checkboxes = document.querySelectorAll('li[data-kind] input[type="checkbox"]');
 var cuts = document.querySelectorAll('li[data-kind]');
 var setupBoxes = document.querySelectorAll('details input[type="checkbox"]');
@@ -24,7 +29,9 @@ var FILTERS = [
   function (li) { return li.dataset.bridge === '1'; }
 ];
 
-var state = { checked: [], setup: [], memos: [], filter: 0 };
+// memos: { id: 표의 번호(아직 못 올렸으면 null), text: 글 }
+// deletes: 인터넷이 없어서 아직 표에서 못 지운 번호들
+var state = { checked: [], setup: [], memos: [], deletes: [], filter: 0 };
 
 function save() {
   try {
@@ -38,7 +45,11 @@ function load() {
     if (saved) {
       state.checked = saved.checked || [];
       state.setup = saved.setup || [];
-      state.memos = saved.memos || [];
+      // 예전에 글자만 저장하던 메모도 이어받는다(표에 올릴 차례를 기다린다)
+      state.memos = (saved.memos || []).map(function (m) {
+        return typeof m === 'string' ? { id: null, text: m } : m;
+      });
+      state.deletes = saved.deletes || [];
       state.filter = saved.filter || 0;
     }
   } catch (e) {}
@@ -69,19 +80,84 @@ function applyFilter() {
   });
 }
 
+// 표(todos)에 요청을 보낸다
+function request(method, query, body) {
+  return fetch(TODOS_URL + query, {
+    method: method,
+    headers: {
+      apikey: SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  }).then(function (res) {
+    if (!res.ok) throw new Error('Supabase ' + res.status);
+    return res.json();
+  });
+}
+
+// 순서대로 하나씩 실행한다 (하나라도 실패하면 멈춘다)
+function runInOrder(items, task) {
+  return items.reduce(function (chain, item) {
+    return chain.then(function () { return task(item); });
+  }, Promise.resolve());
+}
+
+var syncing = false;
+var syncAgain = false;
+
+// 폰에 있는 메모와 표를 맞춘다: 못 지운 것 지우기 → 못 올린 것 올리기 → 표의 목록 받아오기
+function sync() {
+  if (syncing) {
+    syncAgain = true;
+    return;
+  }
+  syncing = true;
+  runInOrder(state.deletes.slice(), function (id) {
+    return request('DELETE', '?id=eq.' + id).then(function () {
+      state.deletes = state.deletes.filter(function (d) { return d !== id; });
+      save();
+    });
+  }).then(function () {
+    return runInOrder(state.memos.filter(function (m) { return m.id === null; }), function (memo) {
+      return request('POST', '', [{ text: memo.text }]).then(function (rows) {
+        memo.id = rows[0].id;
+        save();
+      });
+    });
+  }).then(function () {
+    return request('GET', '?select=id,text,done,created_at&order=created_at.asc,id.asc');
+  }).then(function (rows) {
+    var waiting = state.memos.filter(function (m) { return m.id === null; });
+    state.memos = rows.map(function (r) { return { id: r.id, text: r.text }; }).concat(waiting);
+    save();
+    renderMemos();
+  }).catch(function () {
+    // 인터넷이 없으면 폰에 저장된 목록을 그대로 쓰고, 나중에 다시 맞춘다
+  }).then(function () {
+    syncing = false;
+    if (syncAgain) {
+      syncAgain = false;
+      sync();
+    }
+  });
+}
+
 function renderMemos() {
   memoList.innerHTML = '';
-  state.memos.forEach(function (text, i) {
+  state.memos.forEach(function (memo, i) {
     var li = document.createElement('li');
     var span = document.createElement('span');
-    span.textContent = text;
+    span.textContent = memo.text;
     var del = document.createElement('button');
     del.type = 'button';
     del.textContent = '삭제';
     del.addEventListener('click', function () {
       state.memos.splice(i, 1);
+      if (memo.id !== null) state.deletes.push(memo.id);
       save();
       renderMemos();
+      sync();
     });
     li.appendChild(span);
     li.appendChild(del);
@@ -90,12 +166,13 @@ function renderMemos() {
 }
 
 function addMemo() {
-  var text = memoInput.value.trim();
+  var text = memoInput.value.trim().slice(0, 200);  // 표는 1~200자만 받는다
   if (!text) return;
-  state.memos.push(text);
+  state.memos.push({ id: null, text: text });
   memoInput.value = '';
   save();
   renderMemos();
+  sync();
 }
 
 // 카드(체크 칸)를 누르면
@@ -139,13 +216,15 @@ memoInput.addEventListener('keydown', function (e) {
 // 초기화
 resetButton.addEventListener('click', function () {
   if (!confirm('정말 초기화할까요? 체크와 메모가 모두 지워져요.')) return;
-  state = { checked: [], setup: [], memos: [], filter: 0 };
+  var oldIds = state.memos.filter(function (m) { return m.id !== null; }).map(function (m) { return m.id; });
+  state = { checked: [], setup: [], memos: [], deletes: state.deletes.concat(oldIds), filter: 0 };
   checkboxes.forEach(function (b) { b.checked = false; });
   setupBoxes.forEach(function (b) { b.checked = false; });
   save();
   updateProgress();
   applyFilter();
   renderMemos();
+  sync();
 });
 
 // 처음 열 때: 저장해 둔 상태를 되살린다
@@ -159,6 +238,8 @@ setupBoxes.forEach(function (b) {
 updateProgress();
 applyFilter();
 renderMemos();
+sync();
+window.addEventListener('online', sync);
 
 // 인터넷이 없어도 열리도록 저장 담당 파일(sw.js)을 등록한다
 if ('serviceWorker' in navigator) {

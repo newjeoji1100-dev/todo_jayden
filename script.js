@@ -1,67 +1,167 @@
-// 명세 ③: 추가 → 목록 맨 아래에 · 체크 → 줄이 그어지고 남은 개수 −1 · 삭제 → 목록에서 사라짐
-// 완료 조건: 빈 칸은 추가 안 됨 · 체크하면 남은 개수가 바로 바뀜 · 새로고침해도 남음 · 휴대폰에서 쓸 수 있음
+// 누르면 무슨 일이 일어나는지 담당하는 파일
+var STORAGE_KEY = 'jeju-checklist-v1';
 
-const KEY = 'todo-items';  // 이 브라우저 안(로컬 스토리지)에 저장할 이름
-let items = JSON.parse(localStorage.getItem(KEY) || '[]');
+var checkboxes = document.querySelectorAll('li[data-kind] input[type="checkbox"]');
+var cuts = document.querySelectorAll('li[data-kind]');
+var setupBoxes = document.querySelectorAll('details input[type="checkbox"]');
+var progress = document.querySelector('header progress');
+var progressText = progress.parentNode.lastChild;
+var resetButton = document.querySelector('header button');
+var filterButtons = document.querySelectorAll('nav button');
+var memoInput = document.getElementById('memo-input');
+var memoButton = memoInput.parentNode.querySelector('button');
+var memoList = document.getElementById('memo-list');
+
+// 필터 버튼 순서: 전체, 2470, 70200, 사진, 영상, 인터뷰, 필수 브릿지
+var FILTERS = [
+  function () { return true; },
+  function (li) { return li.dataset.lens === '2470'; },
+  function (li) { return li.dataset.lens === '70200'; },
+  function (li) { return li.dataset.kind === '사진'; },
+  function (li) { return li.dataset.kind === '영상'; },
+  function (li) { return li.dataset.kind === '인터뷰'; },
+  function (li) { return li.dataset.bridge === '1'; }
+];
+
+var state = { checked: [], setup: [], memos: [], filter: 0 };
 
 function save() {
-  localStorage.setItem(KEY, JSON.stringify(items));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
 }
 
-function addItem(text) {
-  items.push({ text: text, done: false });  // 목록 맨 아래에
-  save();
-  render();
+function load() {
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved) {
+      state.checked = saved.checked || [];
+      state.setup = saved.setup || [];
+      state.memos = saved.memos || [];
+      state.filter = saved.filter || 0;
+    }
+  } catch (e) {}
 }
 
-function render() {
-  const list = document.querySelector('#list');
-  list.innerHTML = '';
-  items.forEach((item, i) => {
-    const li = document.createElement('li');
-    if (item.done) li.classList.add('done');
+function updateProgress() {
+  var done = 0;
+  checkboxes.forEach(function (box) {
+    if (box.checked) done++;
+  });
+  var total = checkboxes.length;
+  progress.max = total;
+  progress.value = done;
+  progressText.textContent = ' ' + done + '/' + total + ' (' + Math.round(done / total * 100) + '%)';
+}
 
-    const check = document.createElement('input');
-    check.type = 'checkbox';
-    check.checked = item.done;
-    check.addEventListener('change', () => {
-      items[i].done = check.checked;
-      save();
-      render();
-    });
+function applyFilter() {
+  cuts.forEach(function (li) {
+    li.hidden = !FILTERS[state.filter](li);
+  });
+  document.querySelectorAll('section').forEach(function (section) {
+    var items = section.querySelectorAll('li[data-kind]');
+    if (items.length === 0) return;
+    section.hidden = section.querySelectorAll('li[data-kind]:not([hidden])').length === 0;
+  });
+  filterButtons.forEach(function (button, i) {
+    button.classList.toggle('active', i === state.filter);
+  });
+}
 
-    const label = document.createElement('span');
-    label.textContent = item.text;
-
-    const del = document.createElement('button');
+function renderMemos() {
+  memoList.innerHTML = '';
+  state.memos.forEach(function (text, i) {
+    var li = document.createElement('li');
+    var span = document.createElement('span');
+    span.textContent = text;
+    var del = document.createElement('button');
     del.type = 'button';
     del.textContent = '삭제';
-    del.addEventListener('click', () => {
-      items.splice(i, 1);
+    del.addEventListener('click', function () {
+      state.memos.splice(i, 1);
       save();
-      render();
+      renderMemos();
     });
-
-    li.append(check, label, del);
-    list.append(li);
+    li.appendChild(span);
+    li.appendChild(del);
+    memoList.appendChild(li);
   });
-  // 남은 개수 = 체크하지 않은 것
-  document.querySelector('#count').textContent = items.filter((item) => !item.done).length;
 }
 
-const button = document.querySelector('#add');
-button.addEventListener('click', () => {
-  const input = document.querySelector('#item');
-  const text = input.value.trim();
-  if (text === '') return;   // 빈 칸이면 멈춘다
-  addItem(text);             // 목록에 추가한다
-  input.value = '';
-  input.focus();
+function addMemo() {
+  var text = memoInput.value.trim();
+  if (!text) return;
+  state.memos.push(text);
+  memoInput.value = '';
+  save();
+  renderMemos();
+}
+
+// 카드(체크 칸)를 누르면
+checkboxes.forEach(function (box) {
+  box.addEventListener('change', function () {
+    state.checked = [];
+    checkboxes.forEach(function (b) {
+      if (b.checked) state.checked.push(b.id);
+    });
+    save();
+    updateProgress();
+  });
 });
 
-// 입력칸에서 Enter를 눌러도 추가된다
-document.querySelector('#item').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter' && !event.isComposing) button.click();
+// 점검표 안의 체크 칸을 누르면 (맨 위 진행률에는 넣지 않는다)
+setupBoxes.forEach(function (box) {
+  box.addEventListener('change', function () {
+    state.setup = [];
+    setupBoxes.forEach(function (b) {
+      if (b.checked) state.setup.push(b.id);
+    });
+    save();
+  });
 });
 
-render();
+// 필터 버튼을 누르면
+filterButtons.forEach(function (button, i) {
+  button.addEventListener('click', function () {
+    state.filter = i;
+    save();
+    applyFilter();
+  });
+});
+
+// 메모 추가
+memoButton.addEventListener('click', addMemo);
+memoInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') addMemo();
+});
+
+// 초기화
+resetButton.addEventListener('click', function () {
+  if (!confirm('정말 초기화할까요? 체크와 메모가 모두 지워져요.')) return;
+  state = { checked: [], setup: [], memos: [], filter: 0 };
+  checkboxes.forEach(function (b) { b.checked = false; });
+  setupBoxes.forEach(function (b) { b.checked = false; });
+  save();
+  updateProgress();
+  applyFilter();
+  renderMemos();
+});
+
+// 처음 열 때: 저장해 둔 상태를 되살린다
+load();
+checkboxes.forEach(function (b) {
+  b.checked = state.checked.indexOf(b.id) !== -1;
+});
+setupBoxes.forEach(function (b) {
+  b.checked = state.setup.indexOf(b.id) !== -1;
+});
+updateProgress();
+applyFilter();
+renderMemos();
+
+// 인터넷이 없어도 열리도록 저장 담당 파일(sw.js)을 등록한다
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}

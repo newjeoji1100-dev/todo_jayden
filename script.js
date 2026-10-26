@@ -106,6 +106,12 @@ function runInOrder(items, task) {
 var syncing = false;
 var syncAgain = false;
 
+// 인터넷은 되는데 표와 연결이 안 될 때 이유를 메모 칸 위에 보여 준다
+var syncNote = document.createElement('p');
+syncNote.className = 'note';
+syncNote.hidden = true;
+memoList.parentNode.insertBefore(syncNote, memoList);
+
 // 폰에 있는 메모와 표를 맞춘다: 못 지운 것 지우기 → 못 올린 것 올리기 → 표의 목록 받아오기
 function sync() {
   if (syncing) {
@@ -132,8 +138,13 @@ function sync() {
     state.memos = rows.map(function (r) { return { id: r.id, text: r.text }; }).concat(waiting);
     save();
     renderMemos();
-  }).catch(function () {
+    syncNote.hidden = true;
+  }).catch(function (error) {
     // 인터넷이 없으면 폰에 저장된 목록을 그대로 쓰고, 나중에 다시 맞춘다
+    if (navigator.onLine) {
+      syncNote.textContent = '표와 연결하지 못했어요 (' + error.message + '). 메모는 이 폰에 저장돼 있어요.';
+      syncNote.hidden = false;
+    }
   }).then(function () {
     syncing = false;
     if (syncAgain) {

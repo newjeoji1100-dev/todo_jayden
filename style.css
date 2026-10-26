@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 12px 48px;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  flex: 1;
+}
+
+h2 {
+  margin: 24px 0 8px;
+  font-size: 18px;
+  color: #ffd400;
+}
+
+/* 위쪽: 제목 · 초기화 · 진행률 (스크롤해도 붙어 있음) */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 -12px;
+  padding: 10px 12px;
+  background: #000;
+  border-bottom: 2px solid #ffd400;
+}
+
+header p {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-weight: bold;
+}
+
+progress {
+  flex: 1;
+  height: 14px;
+  accent-color: #ffd400;
+}
+
+/* 버튼 */
+button {
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+header button {
+  min-height: 40px;
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+/* 필터 버튼 줄 */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+/* 장비 & 세팅 점검표 */
+details {
+  margin: 12px 0;
+  padding: 12px;
+  border: 2px solid #ffd400;
+  border-radius: 10px;
+  background: #111;
+}
+
+summary {
+  min-height: 32px;
+  font-weight: bold;
+  color: #ffd400;
+}
+
+details h2 {
+  font-size: 16px;
+}
+
+details p {
+  margin: 0 0 8px;
+}
+
+/* 현장 메모 */
+input[type="text"] {
+  width: 100%;
+  min-height: 48px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* 컷 카드 */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  margin-bottom: 10px;
+  border: 2px solid #666;
+  border-radius: 12px;
+  background: #111;
+}
+
+li label {
+  display: block;
+  min-height: 64px;
+  padding: 14px 14px 14px 56px;
+}
+
+li input[type="checkbox"] {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  width: 28px;
+  height: 28px;
+  accent-color: #ffd400;
+}
+
+li label span {
+  color: #ffd400;
+  font-weight: bold;
+}
+
+/* 완료한 컷: 반투명 + 취소선 */
+li:has(input:checked) {
+  opacity: 0.45;
+}
+
+li:has(input:checked) label {
+  text-decoration: line-through;
+}
+
+/* 메모 목록은 비어 있으면 자리를 차지하지 않음 */
+#memo-list:empty {
+  display: none;
+}
+
+/* 큰 화면에서는 가운데 정렬로 읽기 좋게 */
+@media (min-width: 700px) {
+  body {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}

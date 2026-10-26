@@ -48,9 +48,10 @@ body {
 h1 {
   flex: 1;
   margin: 0;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
+  word-break: keep-all;
 }
 
 /* 작은 제목은 라이카 설정 화면처럼 가는 대문자 느낌 */
@@ -91,12 +92,12 @@ header {
   border-bottom: 2px solid var(--line);
 }
 
-header::before {
-  content: "";
-  width: 14px;
-  height: 14px;
+/* 맨 위 로고: 원본이 원 모양이라 동그랗게 잘라 흰 모서리를 없앤다 */
+header .logo {
+  flex: none;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--red);
 }
 
 header p {
@@ -159,10 +160,10 @@ button:active {
 
 header button {
   min-height: 40px;
-  padding: 4px 14px;
+  padding: 4px 10px;
   border-color: var(--red);
   color: var(--red);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.1em;
 }
 

@@ -3,6 +3,7 @@ var STORAGE_KEY = 'jeju-checklist-v1';
 
 var checkboxes = document.querySelectorAll('li[data-kind] input[type="checkbox"]');
 var cuts = document.querySelectorAll('li[data-kind]');
+var setupBoxes = document.querySelectorAll('details input[type="checkbox"]');
 var progress = document.querySelector('header progress');
 var progressText = progress.parentNode.lastChild;
 var resetButton = document.querySelector('header button');
@@ -22,7 +23,7 @@ var FILTERS = [
   function (li) { return li.dataset.bridge === '1'; }
 ];
 
-var state = { checked: [], memos: [], filter: 0 };
+var state = { checked: [], setup: [], memos: [], filter: 0 };
 
 function save() {
   try {
@@ -35,6 +36,7 @@ function load() {
     var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved) {
       state.checked = saved.checked || [];
+      state.setup = saved.setup || [];
       state.memos = saved.memos || [];
       state.filter = saved.filter || 0;
     }
@@ -107,6 +109,17 @@ checkboxes.forEach(function (box) {
   });
 });
 
+// 점검표 안의 체크 칸을 누르면 (맨 위 진행률에는 넣지 않는다)
+setupBoxes.forEach(function (box) {
+  box.addEventListener('change', function () {
+    state.setup = [];
+    setupBoxes.forEach(function (b) {
+      if (b.checked) state.setup.push(b.id);
+    });
+    save();
+  });
+});
+
 // 필터 버튼을 누르면
 filterButtons.forEach(function (button, i) {
   button.addEventListener('click', function () {
@@ -125,8 +138,9 @@ memoInput.addEventListener('keydown', function (e) {
 // 초기화
 resetButton.addEventListener('click', function () {
   if (!confirm('정말 초기화할까요? 체크와 메모가 모두 지워져요.')) return;
-  state = { checked: [], memos: [], filter: 0 };
+  state = { checked: [], setup: [], memos: [], filter: 0 };
   checkboxes.forEach(function (b) { b.checked = false; });
+  setupBoxes.forEach(function (b) { b.checked = false; });
   save();
   updateProgress();
   applyFilter();
@@ -137,6 +151,9 @@ resetButton.addEventListener('click', function () {
 load();
 checkboxes.forEach(function (b) {
   b.checked = state.checked.indexOf(b.id) !== -1;
+});
+setupBoxes.forEach(function (b) {
+  b.checked = state.setup.indexOf(b.id) !== -1;
 });
 updateProgress();
 applyFilter();

@@ -8,7 +8,8 @@ var TODOS_URL = SUPABASE_URL + '/rest/v1/todos';
 
 var checkboxes = document.querySelectorAll('li[data-kind] input[type="checkbox"]');
 var cuts = document.querySelectorAll('li[data-kind]');
-var setupBoxes = document.querySelectorAll('details input[type="checkbox"]');
+var setupBoxes = document.querySelectorAll('details.gear input[type="checkbox"]');
+var parts = document.querySelectorAll('details.part');
 var progress = document.querySelector('header progress');
 var progressText = progress.parentNode.lastChild;
 var resetButton = document.querySelector('header button');
@@ -33,7 +34,7 @@ var FILTERS = [
 
 // memos: { id: 표의 번호(아직 못 올렸으면 null), text: 글, dirty: 고친 글을 아직 표에 못 올렸으면 true }
 // deletes: 인터넷이 없어서 아직 표에서 못 지운 번호들
-var state = { checked: [], setup: [], memos: [], deletes: [], filter: 0 };
+var state = { checked: [], setup: [], memos: [], deletes: [], closed: [], filter: 0 };
 
 function save() {
   try {
@@ -52,6 +53,7 @@ function load() {
         return typeof m === 'string' ? { id: null, text: m } : m;
       });
       state.deletes = saved.deletes || [];
+      state.closed = saved.closed || [];
       state.filter = saved.filter || 0;
     }
   } catch (e) {}
@@ -276,6 +278,15 @@ setupBoxes.forEach(function (box) {
   });
 });
 
+// 섹션 제목을 누르면 접고 펼친다 (접은 섹션 번호를 저장해 둔다)
+parts.forEach(function (part, i) {
+  part.addEventListener('toggle', function () {
+    state.closed = state.closed.filter(function (n) { return n !== i; });
+    if (!part.open) state.closed.push(i);
+    save();
+  });
+});
+
 // 필터 버튼을 누르면
 filterButtons.forEach(function (button, i) {
   button.addEventListener('click', function () {
@@ -308,7 +319,7 @@ refreshButton.addEventListener('click', function () {
 resetButton.addEventListener('click', function () {
   if (!confirm('정말 초기화할까요? 체크와 메모가 모두 지워져요.')) return;
   var oldIds = state.memos.filter(function (m) { return m.id !== null; }).map(function (m) { return m.id; });
-  state = { checked: [], setup: [], memos: [], deletes: state.deletes.concat(oldIds), filter: 0 };
+  state = { checked: [], setup: [], memos: [], deletes: state.deletes.concat(oldIds), closed: state.closed, filter: 0 };
   checkboxes.forEach(function (b) { b.checked = false; });
   setupBoxes.forEach(function (b) { b.checked = false; });
   save();
@@ -320,6 +331,9 @@ resetButton.addEventListener('click', function () {
 
 // 처음 열 때: 저장해 둔 상태를 되살린다
 load();
+parts.forEach(function (part, i) {
+  part.open = state.closed.indexOf(i) === -1;
+});
 checkboxes.forEach(function (b) {
   b.checked = state.checked.indexOf(b.id) !== -1;
 });

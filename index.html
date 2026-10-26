@@ -25,7 +25,7 @@
     <button type="button">★필수 브릿지</button>
   </nav>
 
-  <details>
+  <details class="gear">
     <summary>⚙️ 장비 &amp; 세팅 점검표</summary>
     <h2>공통 영상 세팅</h2>
     <p>4K 10-bit 4:2:2 / 24p / 셔터 1/50s / Creative Look FL(FL3) / 9:16 세로 마커 ON / 두 바디 시간 동기화 완료</p>
@@ -80,200 +80,212 @@
   </details>
 
   <section>
-    <h2>현장 메모</h2>
-    <input type="text" id="memo-input" placeholder="예: 론다 님 인터뷰 오케이 컷 70200_0042">
-    <button type="button">메모 추가</button>
-    <ul id="memo-list"></ul>
+    <details class="part" open>
+      <summary>현장 메모</summary>
+      <input type="text" id="memo-input" placeholder="예: 론다 님 인터뷰 오케이 컷 70200_0042">
+      <button type="button">메모 추가</button>
+      <ul id="memo-list"></ul>
+    </details>
   </section>
 
   <section>
-    <h2>섹션 1. 여정의 시작: 제주공항 & 이동</h2>
-    <ul>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-1">
-        <label for="cut-1">1. [사진] [2470] 제주공항 도착 직후 전체 그룹 포토 (세로형/가로형 각 1장 + 3초 무빙 포토)</label>
-      </li>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-2">
-        <label for="cut-2">2. [사진] [2470] 참가자들끼리 반갑게 인사하고 포옹하는 환영 캔디드 스냅</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-3">
-        <label for="cut-3">3. [영상] [2470] 게이트를 걸어 나오며 밝게 웃고 손 흔드는 오프닝 컷 (3~4초)</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-4">
-        <label for="cut-4">4. [영상] [2470] 공항 밖으로 나와 제주의 바람과 햇살을 처음 마주하는 참가자들의 표정</label>
-      </li>
-    </ul>
+    <details class="part" open>
+      <summary>섹션 1. 여정의 시작: 제주공항 & 이동</summary>
+      <ul>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-1">
+          <label for="cut-1">1. [사진] [2470] 제주공항 도착 직후 전체 그룹 포토 (세로형/가로형 각 1장 + 3초 무빙 포토)</label>
+        </li>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-2">
+          <label for="cut-2">2. [사진] [2470] 참가자들끼리 반갑게 인사하고 포옹하는 환영 캔디드 스냅</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-3">
+          <label for="cut-3">3. [영상] [2470] 게이트를 걸어 나오며 밝게 웃고 손 흔드는 오프닝 컷 (3~4초)</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-4">
+          <label for="cut-4">4. [영상] [2470] 공항 밖으로 나와 제주의 바람과 햇살을 처음 마주하는 참가자들의 표정</label>
+        </li>
+      </ul>
+    </details>
   </section>
 
   <section>
-    <h2>섹션 2. 위로: 해녀의 부엌 & 제주 바다</h2>
-    <ul>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-5">
-        <label for="cut-5">5. [사진] [2470] 제주 바다를 배경으로 해녀분들과 함께 찍는 전체 그룹 포토</label>
-      </li>
-      <li data-kind="사진" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-6">
-        <label for="cut-6">6. [사진] [70200] 해녀와 참가자가 눈을 맞추며 환하게 웃는 교감 스냅</label>
-      </li>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-7">
-        <label for="cut-7">7. [사진] [2470] 해녀의 거친 손과 참가자의 손이 맞닿은 클로즈업 디테일 컷</label>
-      </li>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-8">
-        <label for="cut-8">8. [사진] [2470] 광활한 제주 바다와 현무암 해안가를 나란히 걷는 참가자들 뒷모습 풀샷</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-9">
-        <label for="cut-9">9. [영상] [70200] 해녀의 부엌 무대 인사 시 해녀분들의 주름진 얼굴과 따뜻한 미소 타이트 샷</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-10">
-        <label for="cut-10">10. [영상] [70200] 해녀분들의 이야기를 들으며 공감하거나 감동하는 참가자 리액션 클로즈업</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-11">
-        <label for="cut-11">11. [영상] [2470] 서로 손짓하며 대화하고 웃음 짓는 현장 분위기 스케치</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="1">
-        <input type="checkbox" id="cut-12">
-        <label for="cut-12">12. [영상] [70200] <span>★필수 브릿지</span> 해녀 씬 직후 사운드 힐링으로 넘어갈 '반짝이는 바다 윤슬' 클로즈업 (5초 이상 흔들림 없이 홀드)</label>
-      </li>
-    </ul>
+    <details class="part" open>
+      <summary>섹션 2. 위로: 해녀의 부엌 & 제주 바다</summary>
+      <ul>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-5">
+          <label for="cut-5">5. [사진] [2470] 제주 바다를 배경으로 해녀분들과 함께 찍는 전체 그룹 포토</label>
+        </li>
+        <li data-kind="사진" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-6">
+          <label for="cut-6">6. [사진] [70200] 해녀와 참가자가 눈을 맞추며 환하게 웃는 교감 스냅</label>
+        </li>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-7">
+          <label for="cut-7">7. [사진] [2470] 해녀의 거친 손과 참가자의 손이 맞닿은 클로즈업 디테일 컷</label>
+        </li>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-8">
+          <label for="cut-8">8. [사진] [2470] 광활한 제주 바다와 현무암 해안가를 나란히 걷는 참가자들 뒷모습 풀샷</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-9">
+          <label for="cut-9">9. [영상] [70200] 해녀의 부엌 무대 인사 시 해녀분들의 주름진 얼굴과 따뜻한 미소 타이트 샷</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-10">
+          <label for="cut-10">10. [영상] [70200] 해녀분들의 이야기를 들으며 공감하거나 감동하는 참가자 리액션 클로즈업</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-11">
+          <label for="cut-11">11. [영상] [2470] 서로 손짓하며 대화하고 웃음 짓는 현장 분위기 스케치</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="1">
+          <input type="checkbox" id="cut-12">
+          <label for="cut-12">12. [영상] [70200] <span>★필수 브릿지</span> 해녀 씬 직후 사운드 힐링으로 넘어갈 '반짝이는 바다 윤슬' 클로즈업 (5초 이상 흔들림 없이 홀드)</label>
+        </li>
+      </ul>
+    </details>
   </section>
 
   <section>
-    <h2>섹션 3. 비움과 정화: 108배 / 요가 & 싱잉볼 사운드 힐링</h2>
-    <ul>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-13">
-        <label for="cut-13">13. [사진] [2470] 요가/명상 공간 매트 위 평온한 전체 그룹 포토</label>
-      </li>
-      <li data-kind="사진" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-14">
-        <label for="cut-14">14. [사진] [70200] 눈을 감고 사운드 힐링에 깊이 몰입한 개인별 포트레이트 (참가자 전원 최소 1장씩 확보)</label>
-      </li>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-15">
-        <label for="cut-15">15. [사진] [2470] 바닥에 놓인 싱잉볼과 스틱, 매트 위 편안하게 내려놓은 손 정물 컷</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-17">
-        <label for="cut-17">17. [영상] [70200] 절을 이어가는 참가자의 깊은 호흡, 맺힌 땀방울, 집중한 눈빛 타이트 클로즈업</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="1">
-        <input type="checkbox" id="cut-18">
-        <label for="cut-18">18. [영상] [70200] <span>★필수 브릿지</span> 싱잉볼을 타격하는 순간의 손끝과 미세한 진동 클로즈업 + 원음(STEREO) 수음</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-19">
-        <label for="cut-19">19. [영상] [70200] 싱잉볼 소리가 울려 퍼질 때 참가자의 깊은 호흡(가슴/어깨 오르내림)과 이완된 표정</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="1">
-        <input type="checkbox" id="cut-20">
-        <label for="cut-20">20. [영상] [2470] <span>★필수 브릿지</span> 창가로 스며드는 빛줄기, 바람에 흔들리는 나뭇잎, 또는 피어오르는 향 연기</label>
-      </li>
-    </ul>
-    <h3>108배 · 염주 만들기 (법당)</h3>
-    <p class="note">FX3 + 16-35mm: 법당 안 낮은 삼각대에 고정 / A7M5 + 70-200mm: 법당 밖에서 촬영</p>
-    <ul>
-      <li data-kind="사진" data-lens="1635" data-bridge="0">
-        <input type="checkbox" id="cut-32">
-        <label for="cut-32">32. [사진] [1635] 시작 전 정물: 비어 있는 법당과 아직 꿰지 않은 염주 알·실·그릇 (Before, 수평 확인)</label>
-      </li>
-      <li data-kind="영상" data-lens="1635" data-bridge="0">
-        <input type="checkbox" id="cut-33">
-        <label for="cut-33">33. [영상] [1635] 법당 안 낮은 삼각대 고정 롱테이크: 낮은 앵글로 절하는 몸의 움직임과 옆의 염주 알 그릇이 같이 보이게, 108배 처음부터 끝까지 한 번에 녹화 (9:16 마커 안에 인물 잘림 주의, 시작할 때 박수 한 번, 카드 용량·배터리 확인)</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-34">
-        <label for="cut-34">34. [영상] [70200] 법당 밖에서 문틈·창 너머로 보이는 절하는 실루엣, 문틀을 프레임으로 활용 (5초 홀드)</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-35">
-        <label for="cut-35">35. [영상] [70200] 절을 마치고 염주 알을 실에 꿰는 손 클로즈업</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-36">
-        <label for="cut-36">36. [영상] [70200] 한 알씩 꿰는 손끝 인서트, 뒤의 촛불·향을 흐리게 깔기</label>
-      </li>
-      <li data-kind="사진" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-37">
-        <label for="cut-37">37. [사진] [70200] 알이 쌓여 가는 그릇 클로즈업</label>
-      </li>
-      <li data-kind="사진" data-lens="1635" data-bridge="0">
-        <input type="checkbox" id="cut-38">
-        <label for="cut-38">38. [사진] [1635] 끝난 뒤 정물: 알이 가득 쌓인 그릇과 완성된 염주 (After)</label>
-      </li>
-      <li data-kind="사진" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-39">
-        <label for="cut-39">39. [사진] [70200] 완성한 염주를 손목에 두르거나 두 손에 든 참가자 인물 컷</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="1">
-        <input type="checkbox" id="cut-40">
-        <label for="cut-40">40. [영상] [70200] <span>★필수 브릿지</span> 완성된 염주를 두 손으로 모아 쥐는 마지막 순간, 싱잉볼 장면으로 넘어가는 브릿지 (5초 이상 흔들림 없이 홀드)</label>
-      </li>
-    </ul>
+    <details class="part" open>
+      <summary>섹션 3. 비움과 정화: 108배 / 요가 & 싱잉볼 사운드 힐링</summary>
+      <ul>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-13">
+          <label for="cut-13">13. [사진] [2470] 요가/명상 공간 매트 위 평온한 전체 그룹 포토</label>
+        </li>
+        <li data-kind="사진" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-14">
+          <label for="cut-14">14. [사진] [70200] 눈을 감고 사운드 힐링에 깊이 몰입한 개인별 포트레이트 (참가자 전원 최소 1장씩 확보)</label>
+        </li>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-15">
+          <label for="cut-15">15. [사진] [2470] 바닥에 놓인 싱잉볼과 스틱, 매트 위 편안하게 내려놓은 손 정물 컷</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-17">
+          <label for="cut-17">17. [영상] [70200] 절을 이어가는 참가자의 깊은 호흡, 맺힌 땀방울, 집중한 눈빛 타이트 클로즈업</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="1">
+          <input type="checkbox" id="cut-18">
+          <label for="cut-18">18. [영상] [70200] <span>★필수 브릿지</span> 싱잉볼을 타격하는 순간의 손끝과 미세한 진동 클로즈업 + 원음(STEREO) 수음</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-19">
+          <label for="cut-19">19. [영상] [70200] 싱잉볼 소리가 울려 퍼질 때 참가자의 깊은 호흡(가슴/어깨 오르내림)과 이완된 표정</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="1">
+          <input type="checkbox" id="cut-20">
+          <label for="cut-20">20. [영상] [2470] <span>★필수 브릿지</span> 창가로 스며드는 빛줄기, 바람에 흔들리는 나뭇잎, 또는 피어오르는 향 연기</label>
+        </li>
+      </ul>
+      <h3>108배 · 염주 만들기 (법당)</h3>
+      <p class="note">FX3 + 16-35mm: 법당 안 낮은 삼각대에 고정 / A7M5 + 70-200mm: 법당 밖에서 촬영</p>
+      <ul>
+        <li data-kind="사진" data-lens="1635" data-bridge="0">
+          <input type="checkbox" id="cut-32">
+          <label for="cut-32">32. [사진] [1635] 시작 전 정물: 비어 있는 법당과 아직 꿰지 않은 염주 알·실·그릇 (Before, 수평 확인)</label>
+        </li>
+        <li data-kind="영상" data-lens="1635" data-bridge="0">
+          <input type="checkbox" id="cut-33">
+          <label for="cut-33">33. [영상] [1635] 법당 안 낮은 삼각대 고정 롱테이크: 낮은 앵글로 절하는 몸의 움직임과 옆의 염주 알 그릇이 같이 보이게, 108배 처음부터 끝까지 한 번에 녹화 (9:16 마커 안에 인물 잘림 주의, 시작할 때 박수 한 번, 카드 용량·배터리 확인)</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-34">
+          <label for="cut-34">34. [영상] [70200] 법당 밖에서 문틈·창 너머로 보이는 절하는 실루엣, 문틀을 프레임으로 활용 (5초 홀드)</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-35">
+          <label for="cut-35">35. [영상] [70200] 절을 마치고 염주 알을 실에 꿰는 손 클로즈업</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-36">
+          <label for="cut-36">36. [영상] [70200] 한 알씩 꿰는 손끝 인서트, 뒤의 촛불·향을 흐리게 깔기</label>
+        </li>
+        <li data-kind="사진" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-37">
+          <label for="cut-37">37. [사진] [70200] 알이 쌓여 가는 그릇 클로즈업</label>
+        </li>
+        <li data-kind="사진" data-lens="1635" data-bridge="0">
+          <input type="checkbox" id="cut-38">
+          <label for="cut-38">38. [사진] [1635] 끝난 뒤 정물: 알이 가득 쌓인 그릇과 완성된 염주 (After)</label>
+        </li>
+        <li data-kind="사진" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-39">
+          <label for="cut-39">39. [사진] [70200] 완성한 염주를 손목에 두르거나 두 손에 든 참가자 인물 컷</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="1">
+          <input type="checkbox" id="cut-40">
+          <label for="cut-40">40. [영상] [70200] <span>★필수 브릿지</span> 완성된 염주를 두 손으로 모아 쥐는 마지막 순간, 싱잉볼 장면으로 넘어가는 브릿지 (5초 이상 흔들림 없이 홀드)</label>
+        </li>
+      </ul>
+    </details>
   </section>
 
   <section>
-    <h2>섹션 4. 채움: 다도(Tea Ceremony) ASMR & 엔딩</h2>
-    <ul>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-21">
-        <label for="cut-21">21. [사진] [2470] 다도 세팅이 완료된 테이블 전체 그룹 포토</label>
-      </li>
-      <li data-kind="사진" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-22">
-        <label for="cut-22">22. [사진] [70200] 따뜻한 찻잔을 두 손으로 감싸 쥐고 향을 음미하는 참가자 클로즈업</label>
-      </li>
-      <li data-kind="사진" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-23">
-        <label for="cut-23">23. [사진] [2470] 햇살이 비치는 다구 세트와 피어오르는 찻물의 김 감성 정물 컷</label>
-      </li>
-      <li data-kind="영상" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-24">
-        <label for="cut-24">24. [영상] [70200] 다관에서 찻잔으로 맑은 찻물이 또르르 따르는 순간 타이트 샷 + 물소리 ASMR 수음 (MAN 5~6 레벨 조절)</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-25">
-        <label for="cut-25">25. [영상] [2470] 차를 마신 뒤 참가자들이 서로 눈을 맞추며 잔잔하게 미소 짓는 모습</label>
-      </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="1">
-        <input type="checkbox" id="cut-26">
-        <label for="cut-26">26. [영상] [2470] <span>★필수 브릿지</span> 엔딩용 컷: 참가자의 따뜻한 1인칭 시점(POV) 샷 (찻잔을 내려다보거나 마주 앉은 이들과 눈 맞추는 시점)</label>
-      </li>
-    </ul>
+    <details class="part" open>
+      <summary>섹션 4. 채움: 다도(Tea Ceremony) ASMR & 엔딩</summary>
+      <ul>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-21">
+          <label for="cut-21">21. [사진] [2470] 다도 세팅이 완료된 테이블 전체 그룹 포토</label>
+        </li>
+        <li data-kind="사진" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-22">
+          <label for="cut-22">22. [사진] [70200] 따뜻한 찻잔을 두 손으로 감싸 쥐고 향을 음미하는 참가자 클로즈업</label>
+        </li>
+        <li data-kind="사진" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-23">
+          <label for="cut-23">23. [사진] [2470] 햇살이 비치는 다구 세트와 피어오르는 찻물의 김 감성 정물 컷</label>
+        </li>
+        <li data-kind="영상" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-24">
+          <label for="cut-24">24. [영상] [70200] 다관에서 찻잔으로 맑은 찻물이 또르르 따르는 순간 타이트 샷 + 물소리 ASMR 수음 (MAN 5~6 레벨 조절)</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="0">
+          <input type="checkbox" id="cut-25">
+          <label for="cut-25">25. [영상] [2470] 차를 마신 뒤 참가자들이 서로 눈을 맞추며 잔잔하게 미소 짓는 모습</label>
+        </li>
+        <li data-kind="영상" data-lens="2470" data-bridge="1">
+          <input type="checkbox" id="cut-26">
+          <label for="cut-26">26. [영상] [2470] <span>★필수 브릿지</span> 엔딩용 컷: 참가자의 따뜻한 1인칭 시점(POV) 샷 (찻잔을 내려다보거나 마주 앉은 이들과 눈 맞추는 시점)</label>
+        </li>
+      </ul>
+    </details>
   </section>
 
   <section>
-    <h2>섹션 5. 스토리텔링: 개인 인터뷰 (70-200mm + DJI Mic 부착)</h2>
-    <ul>
-      <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-27">
-        <label for="cut-27">27. [인터뷰] [70200] Q1 (전체 감상/단어): "If you could describe this retreat in one word, what would it be? What comes to your mind first?"</label>
-      </li>
-      <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-28">
-        <label for="cut-28">28. [인터뷰] [70200] Q2 (위로/해녀): "How did you feel when you met the Haenyeo divers?"</label>
-      </li>
-      <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-29">
-        <label for="cut-29">29. [인터뷰] [70200] Q3 (정화/평온): "When did you feel most peaceful today during the singing bowl or tea ceremony?"</label>
-      </li>
-      <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-30">
-        <label for="cut-30">30. [인터뷰] [70200] Q4 (채움/메시지): "What would you say to someone hesitating to come here?"</label>
-      </li>
-      <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
-        <input type="checkbox" id="cut-31">
-        <label for="cut-31">31. [인터뷰] [70200] Q5 (내레이션용 1줄 요약): "Could you summarize your feeling in one short sentence?"</label>
-      </li>
-    </ul>
+    <details class="part" open>
+      <summary>섹션 5. 스토리텔링: 개인 인터뷰 (70-200mm + DJI Mic 부착)</summary>
+      <ul>
+        <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-27">
+          <label for="cut-27">27. [인터뷰] [70200] Q1 (전체 감상/단어): "If you could describe this retreat in one word, what would it be? What comes to your mind first?"</label>
+        </li>
+        <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-28">
+          <label for="cut-28">28. [인터뷰] [70200] Q2 (위로/해녀): "How did you feel when you met the Haenyeo divers?"</label>
+        </li>
+        <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-29">
+          <label for="cut-29">29. [인터뷰] [70200] Q3 (정화/평온): "When did you feel most peaceful today during the singing bowl or tea ceremony?"</label>
+        </li>
+        <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-30">
+          <label for="cut-30">30. [인터뷰] [70200] Q4 (채움/메시지): "What would you say to someone hesitating to come here?"</label>
+        </li>
+        <li data-kind="인터뷰" data-lens="70200" data-bridge="0">
+          <input type="checkbox" id="cut-31">
+          <label for="cut-31">31. [인터뷰] [70200] Q5 (내레이션용 1줄 요약): "Could you summarize your feeling in one short sentence?"</label>
+        </li>
+      </ul>
+    </details>
   </section>
   <script type="module" src="script.js"></script>
 </body>

@@ -149,6 +149,18 @@ header button {
   letter-spacing: 0.1em;
 }
 
+/* 노란 새로고침 버튼 (아이콘은 script.js가 📷 ↔ 📸로 바꾼다) */
+header button#refresh {
+  border-color: #000;
+  background: var(--amber);
+  color: #000;
+  letter-spacing: 0.04em;
+}
+
+header button#refresh:active {
+  background: #ffe066;
+}
+
 /* 필터 버튼 줄 */
 nav {
   display: flex;

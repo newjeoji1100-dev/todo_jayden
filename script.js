@@ -12,6 +12,8 @@ var setupBoxes = document.querySelectorAll('details input[type="checkbox"]');
 var progress = document.querySelector('header progress');
 var progressText = progress.parentNode.lastChild;
 var resetButton = document.querySelector('header button');
+var refreshButton = document.getElementById('refresh');
+var refreshIcon = refreshButton.querySelector('span');
 var filterButtons = document.querySelectorAll('nav button');
 var memoInput = document.getElementById('memo-input');
 var memoButton = memoInput.parentNode.querySelector('button');
@@ -287,6 +289,19 @@ filterButtons.forEach(function (button, i) {
 memoButton.addEventListener('click', addMemo);
 memoInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') addMemo();
+});
+
+// 새로고침: 평소엔 📷, 누르는 동안엔 플래시가 터진 📸. 누르면 번쩍한 뒤 새로고침한다
+function setIcon(flash) {
+  refreshIcon.textContent = flash ? '📸' : '📷';
+}
+refreshButton.addEventListener('pointerdown', function () { setIcon(true); });
+['pointerup', 'pointerleave', 'pointercancel'].forEach(function (name) {
+  refreshButton.addEventListener(name, function () { setIcon(false); });
+});
+refreshButton.addEventListener('click', function () {
+  setIcon(true);
+  setTimeout(function () { location.reload(); }, 400);
 });
 
 // 초기화

@@ -10,6 +10,7 @@
   --amber: #ffc21a;
   --lens-2470: #6fb0ff;
   --lens-70200: #5fe08f;
+  --lens-1635: #e0a0ff;
 }
 
 * {
@@ -41,6 +42,20 @@ h2 {
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.12em;
+  color: var(--dim);
+}
+
+h3 {
+  margin: 28px 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.note {
+  margin: 0 0 12px;
+  font-size: 15px;
   color: var(--dim);
 }
 
@@ -209,6 +224,10 @@ li[data-lens="2470"] {
 
 li[data-lens="70200"] {
   border-left-color: var(--lens-70200);
+}
+
+li[data-lens="1635"] {
+  border-left-color: var(--lens-1635);
 }
 
 /* ★필수 브릿지는 앰버 테두리 */

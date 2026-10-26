@@ -12,11 +12,12 @@ var memoInput = document.getElementById('memo-input');
 var memoButton = memoInput.parentNode.querySelector('button');
 var memoList = document.getElementById('memo-list');
 
-// 필터 버튼 순서: 전체, 2470, 70200, 사진, 영상, 인터뷰, 필수 브릿지
+// 필터 버튼 순서: 전체, 2470, 70200, 1635, 사진, 영상, 인터뷰, 필수 브릿지
 var FILTERS = [
   function () { return true; },
   function (li) { return li.dataset.lens === '2470'; },
   function (li) { return li.dataset.lens === '70200'; },
+  function (li) { return li.dataset.lens === '1635'; },
   function (li) { return li.dataset.kind === '사진'; },
   function (li) { return li.dataset.kind === '영상'; },
   function (li) { return li.dataset.kind === '인터뷰'; },

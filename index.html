@@ -10,13 +10,14 @@
   <header>
     <h1>촬영감독의 컷 체크리스트</h1>
     <button type="button">초기화</button>
-    <p>전체 촬영 진행률: <progress value="0" max="31"></progress> 0/31 (0%)</p>
+    <p>전체 촬영 진행률: <progress value="0" max="39"></progress> 0/39 (0%)</p>
   </header>
 
   <nav>
     <button type="button">전체</button>
     <button type="button">📷 2470</button>
     <button type="button">🔭 70200</button>
+    <button type="button">🎥 1635</button>
     <button type="button">사진</button>
     <button type="button">영상</button>
     <button type="button">🎤 인터뷰</button>
@@ -31,6 +32,8 @@
     <p>소니 ECM-M1 DIGITAL / 필터 LC(로우컷) / 지향성(평소 전면, 싱잉볼·다도 시 STEREO, 조용할 땐 MAN 5~6)</p>
     <h2>70-200mm 오디오</h2>
     <p>핫슈에 DJI Mic 수신기 장착 / 인터뷰 및 싱잉볼 타격 시 송신기 근접 배치 (내부 백업 녹음 ON)</p>
+    <h2>FX3 + 16-35mm 세팅 (법당 안 고정)</h2>
+    <p>4K 24p 10-bit 4:2:2(긴 녹화는 XAVC HS) / 셔터 1/50s 근처 / Creative Look ST + Contrast −1, Highlights −2, Shadows +1, Fade +15, Saturation −1 (시네마틱 출발값, 낮에 A7M5 FL3와 비교해서 맞추기) / WB 켈빈 고정(법당 조명 보며 4300~4800K) / 조리개 F2.8~F4 / ISO 400~3200 / 손떨방 OFF(삼각대) / AF 끄고 MF 고정(피킹 확인) / 9:16 마커 ON / 큰 배터리나 외부 전원 + 카드 용량 여유 / 시작할 때 박수 한 번으로 두 카메라 소리 맞추기</p>
     <h2>촬영 룰</h2>
     <p>모든 영상은 원하는 장면을 찍은 뒤 마음속으로 5초 더 세고 종료(5초 홀드) / 그룹 포토 직후 3초간 무빙 포토(영상) 연속 촬영</p>
     <h2>현장 즉시 확인용 원라인 투두리스트</h2>
@@ -156,10 +159,6 @@
         <input type="checkbox" id="cut-15">
         <label for="cut-15">15. [사진] [2470] 바닥에 놓인 싱잉볼과 스틱, 매트 위 편안하게 내려놓은 손 정물 컷</label>
       </li>
-      <li data-kind="영상" data-lens="2470" data-bridge="0">
-        <input type="checkbox" id="cut-16">
-        <label for="cut-16">16. [영상] [2470] 108배 또는 요가 동작의 일체감 있는 움직임 원테이크 풀샷 (9:16 마커 내 인물 잘림 주의)</label>
-      </li>
       <li data-kind="영상" data-lens="70200" data-bridge="0">
         <input type="checkbox" id="cut-17">
         <label for="cut-17">17. [영상] [70200] 절을 이어가는 참가자의 깊은 호흡, 맺힌 땀방울, 집중한 눈빛 타이트 클로즈업</label>
@@ -175,6 +174,46 @@
       <li data-kind="영상" data-lens="2470" data-bridge="1">
         <input type="checkbox" id="cut-20">
         <label for="cut-20">20. [영상] [2470] <span>★필수 브릿지</span> 창가로 스며드는 빛줄기, 바람에 흔들리는 나뭇잎, 또는 피어오르는 향 연기</label>
+      </li>
+    </ul>
+    <h3>108배 · 염주 만들기 (법당)</h3>
+    <p class="note">FX3 + 16-35mm: 법당 안 낮은 삼각대에 고정 / A7M5 + 70-200mm: 법당 밖에서 촬영</p>
+    <ul>
+      <li data-kind="사진" data-lens="1635" data-bridge="0">
+        <input type="checkbox" id="cut-32">
+        <label for="cut-32">32. [사진] [1635] 시작 전 정물: 비어 있는 법당과 아직 꿰지 않은 염주 알·실·그릇 (Before, 수평 확인)</label>
+      </li>
+      <li data-kind="영상" data-lens="1635" data-bridge="0">
+        <input type="checkbox" id="cut-33">
+        <label for="cut-33">33. [영상] [1635] 법당 안 낮은 삼각대 고정 롱테이크: 낮은 앵글로 절하는 몸의 움직임과 옆의 염주 알 그릇이 같이 보이게, 108배 처음부터 끝까지 한 번에 녹화 (9:16 마커 안에 인물 잘림 주의, 시작할 때 박수 한 번, 카드 용량·배터리 확인)</label>
+      </li>
+      <li data-kind="영상" data-lens="70200" data-bridge="0">
+        <input type="checkbox" id="cut-34">
+        <label for="cut-34">34. [영상] [70200] 법당 밖에서 문틈·창 너머로 보이는 절하는 실루엣, 문틀을 프레임으로 활용 (5초 홀드)</label>
+      </li>
+      <li data-kind="영상" data-lens="70200" data-bridge="0">
+        <input type="checkbox" id="cut-35">
+        <label for="cut-35">35. [영상] [70200] 절을 마치고 염주 알을 실에 꿰는 손 클로즈업</label>
+      </li>
+      <li data-kind="영상" data-lens="70200" data-bridge="0">
+        <input type="checkbox" id="cut-36">
+        <label for="cut-36">36. [영상] [70200] 한 알씩 꿰는 손끝 인서트, 뒤의 촛불·향을 흐리게 깔기</label>
+      </li>
+      <li data-kind="사진" data-lens="70200" data-bridge="0">
+        <input type="checkbox" id="cut-37">
+        <label for="cut-37">37. [사진] [70200] 알이 쌓여 가는 그릇 클로즈업</label>
+      </li>
+      <li data-kind="사진" data-lens="1635" data-bridge="0">
+        <input type="checkbox" id="cut-38">
+        <label for="cut-38">38. [사진] [1635] 끝난 뒤 정물: 알이 가득 쌓인 그릇과 완성된 염주 (After)</label>
+      </li>
+      <li data-kind="사진" data-lens="70200" data-bridge="0">
+        <input type="checkbox" id="cut-39">
+        <label for="cut-39">39. [사진] [70200] 완성한 염주를 손목에 두르거나 두 손에 든 참가자 인물 컷</label>
+      </li>
+      <li data-kind="영상" data-lens="70200" data-bridge="1">
+        <input type="checkbox" id="cut-40">
+        <label for="cut-40">40. [영상] [70200] <span>★필수 브릿지</span> 완성된 염주를 두 손으로 모아 쥐는 마지막 순간, 싱잉볼 장면으로 넘어가는 브릿지 (5초 이상 흔들림 없이 홀드)</label>
       </li>
     </ul>
   </section>
